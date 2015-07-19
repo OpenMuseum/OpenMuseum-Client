@@ -1,0 +1,17 @@
+{
+    "name": "OpenMuseum-Client",
+    "description": "Web application for Open Museum",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:OpenMuseum/OpenMuseum-Client.git"
+    },
+    "devDependencies": {
+        "gulp": "^3.9.0",
+        "gulp-bower": "^0.0.10"
+    },
+    "engines": {
+        "node": "~0.10.0"
+    },
+    "private": true
+}

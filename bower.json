@@ -1,0 +1,14 @@
+{
+    "name": "OpenMuseum-Client",
+    "description": "Web application for Open Museum",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:OpenMuseum/OpenMuseum-Client.git"
+    },
+    "dependencies": {
+        "angular": "^1.4.0",
+        "requirejs": "^2.1.0"
+    },
+    "private": true
+}
