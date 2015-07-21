@@ -8,7 +8,10 @@
     },
     "dependencies": {
         "angular": "^1.4.0",
-        "requirejs": "^2.1.0"
+        "angular-route": "^1.4.0",
+        "leaflet": "^0.7.3",
+        "requirejs": "^2.1.0",
+        "requirejs-domready": "^2.0.0"
     },
     "private": true
 }

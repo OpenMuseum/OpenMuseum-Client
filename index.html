@@ -3,9 +3,17 @@
     <head>
         <meta charset="utf-8">
         <title>Open Museum App</title>
+        <link rel="stylesheet" href="src/lib/leaflet/dist/leaflet.css"/>
+        <style>
+            #main-map {
+                height: 400px;
+            }
+        </style>
     </head>
     <body>
-        <div>Hello! I'm + {{' "Open Museum" '}} + project</div>
+        <header>Hello! I'm + {{' "Open Museum" '}} + project</header>
+
+        <div ng-view></div>
 
         <script src="src/lib/requirejs/require.js" data-main="src/require-config.js"></script>
     </body>
