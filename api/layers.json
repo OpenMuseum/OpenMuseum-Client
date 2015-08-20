@@ -1,0 +1,18 @@
+{
+    "layers": [
+        {
+            "id": 1,
+            "name": "Paris 1550",
+            "height": 6108,
+            "width": 4444,
+            "url": "https://dl.dropboxusercontent.com/u/4605143/paris1550/{z}/{x}/{y}.png"
+        },
+        {
+            "id": 2,
+            "name": "Paris 1575",
+            "height": 6108,
+            "width": 4444,
+            "url": "https://dl.dropboxusercontent.com/u/4605143/paris1575/{z}/{x}/{y}.png"
+        }
+    ]
+}

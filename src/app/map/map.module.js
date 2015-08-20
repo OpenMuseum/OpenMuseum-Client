@@ -1,17 +1,17 @@
 define([
     'angular',
     './map.controller',
-    './maps.service',
+    './layers.service',
     './leaflet-map.directive'
 ], function (angular,
              MapController,
-             MapsDataService,
+             LayersDataService,
              LeafletMapDirective) {
     'use strict';
 
      angular
          .module('app.map', [])
          .controller('MapController', MapController)
-         .factory('MapsDataService', MapsDataService)
+         .factory('LayersDataService', LayersDataService)
          .directive('leafletMap', LeafletMapDirective);
 });

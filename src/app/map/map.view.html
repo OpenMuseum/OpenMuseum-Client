@@ -1,3 +1,3 @@
-<div id="map">
-    <leaflet-map></leaflet-map>
+<div id="map" ng-if="mapCtrl.layers.length">
+    <leaflet-map layers="mapCtrl.layers"></leaflet-map>
 </div>

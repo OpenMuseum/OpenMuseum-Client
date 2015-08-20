@@ -4,7 +4,8 @@ require.config({
         'angular': '../lib/angular/angular',
         'angular-route': '../lib/angular-route/angular-route',
         'domReady': '../lib/requirejs-domready/domReady',
-        'leaflet': '../lib/leaflet/dist/leaflet-src'
+        'leaflet': '../lib/leaflet/dist/leaflet-src',
+        'lodash': '../lib/lodash/lodash'
     },
     shim: {
         'angular': {

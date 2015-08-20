@@ -1,5 +1,6 @@
 define([
-    'leaflet'
+    'leaflet',
+    'lodash'
 ], function () {
     'use strict';
 
@@ -7,6 +8,9 @@ define([
         var directive = {
             restrict: 'E',
             templateUrl: './src/app/map/leaflet-map.directive.html',
+            scope: {
+                layers: '='
+            },
             link: linkFunc,
             controller: LeafletMapController,
             controllerAs: 'leafletCtrl',
@@ -18,29 +22,45 @@ define([
         ///////////////
 
         function linkFunc(scope, el, attr, ctrl) {
+            var layersControls = {};
             var map;
             var mapBounds;
-            var mapMinZoom = 3;
+            var mapLayers = [];
             var mapMaxZoom = 5;
+            var mapMinZoom = 3;
+            var northEast;
+            var southWest;
+
+            _.forEach(ctrl.layers, function (layer) {
+                var mapLayer = L.tileLayer(layer.url, {
+                    minZoom: mapMinZoom,
+                    maxZoom: mapMaxZoom,
+                    noWrap: true,
+                    continuousWorld: true
+                });
+
+                layersControls[layer.name] = mapLayer;
+
+                mapLayers.push(mapLayer);
+            });
 
             map = L.map('main-map', {
+                crs: L.CRS.Simple,
+                layers: mapLayers,
                 maxZoom: mapMaxZoom,
-                minZoom: mapMinZoom
+                minZoom: mapMinZoom,
+                center: [0, 0],
+                zoom: 3
             });
-            map.setView([0, 0], 3);
 
-            mapBounds = new L.LatLngBounds(map.unproject([0, 4444], mapMaxZoom), map.unproject([6108, 0], mapMaxZoom));
+            southWest = map.unproject([0, 4444], mapMaxZoom);
+            northEast = map.unproject([6108, 0], mapMaxZoom);
+            mapBounds = L.latLngBounds(southWest, northEast);
 
             map.setMaxBounds(mapBounds);
+            map.setView(mapBounds.getCenter(), 4);
 
-            var paris1550 = L.tileLayer('https://dl.dropboxusercontent.com/u/4605143/paris1550/{z}/{x}/{y}.png', {
-                minZoom: mapMinZoom,
-                maxZoom: mapMaxZoom,
-                //bounds: mapBounds,
-                noWrap: true
-            });
-
-            map.addLayer(paris1550);
+            L.control.layers(layersControls).addTo(map);
         }
     }
 
