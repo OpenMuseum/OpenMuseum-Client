@@ -18,14 +18,29 @@ define([
         ///////////////
 
         function linkFunc(scope, el, attr, ctrl) {
-            var map = L.map('main-map');
-            var osm = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                minZoom: 8,
-                maxZoom: 12
+            var map;
+            var mapBounds;
+            var mapMinZoom = 3;
+            var mapMaxZoom = 5;
+
+            map = L.map('main-map', {
+                maxZoom: mapMaxZoom,
+                minZoom: mapMinZoom
+            });
+            map.setView([0, 0], 3);
+
+            mapBounds = new L.LatLngBounds(map.unproject([0, 4444], mapMaxZoom), map.unproject([6108, 0], mapMaxZoom));
+
+            map.setMaxBounds(mapBounds);
+
+            var paris1550 = L.tileLayer('https://dl.dropboxusercontent.com/u/4605143/paris1550/{z}/{x}/{y}.png', {
+                minZoom: mapMinZoom,
+                maxZoom: mapMaxZoom,
+                //bounds: mapBounds,
+                noWrap: true
             });
 
-            map.setView(new L.LatLng(51.3, 0.7),9);
-            map.addLayer(osm);
+            map.addLayer(paris1550);
         }
     }
 
