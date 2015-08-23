@@ -1,36 +1,36 @@
 define([], function () {
     'use strict';
 
-    MapController.$inject = ['MapsDataService'];
+    MapController.$inject = ['LayersDataService'];
 
-    function MapController(MapsDataService) {
+    function MapController(LayersDataService) {
         var ctrl = this;
 
-        ctrl.currentMap = {};
-        ctrl.maps = [];
+        ctrl.currentLayer = {};
+        ctrl.layers = [];
 
         activate();
 
         ///////////////
 
         function activate() {
-            return getMaps().then(function(maps) {
-                setCurrentMap(maps[0]);
+            return getLayers().then(function(layers) {
+                setCurrentLayer(layers[0]);
                 //logger.info('Activated Map View');
             });
         }
 
-        function getMaps() {
-            return MapsDataService.getMaps()
+        function getLayers() {
+            return LayersDataService.getLayers()
                 .then(function(data) {
-                    ctrl.maps = data;
+                    ctrl.layers = data;
 
-                    return ctrl.maps;
+                    return ctrl.layers;
                 });
         }
 
-        function setCurrentMap(map) {
-            ctrl.currentMap = map;
+        function setCurrentLayer(layer) {
+            ctrl.currentLayer = layer;
         }
     }
 
