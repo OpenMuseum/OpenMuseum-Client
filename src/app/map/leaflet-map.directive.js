@@ -1,8 +1,8 @@
-define([
-    'leaflet',
-    'lodash'
-], function () {
-    'use strict';
+'use strict';
+
+angular
+    .module('sfMap')
+    .directive('sfLeafletMap', LeafletMapDirective);
 
     function LeafletMapDirective() {
         var directive = {
@@ -20,6 +20,10 @@ define([
         return directive;
 
         ///////////////
+
+        function LeafletMapController() {
+            var vm = this;
+        }
 
         function linkFunc(scope, el, attr, ctrl) {
             var layersControls = {};
@@ -63,10 +67,3 @@ define([
             L.control.layers(layersControls).addTo(map);
         }
     }
-
-    function LeafletMapController() {
-        var ctrl = this;
-    }
-
-    return LeafletMapDirective;
-});

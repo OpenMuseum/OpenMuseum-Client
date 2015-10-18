@@ -1,39 +1,38 @@
-define([], function () {
-    'use strict';
+'use strict';
 
-    MapController.$inject = ['LayersDataService'];
+angular
+    .module('sfMap')
+    .controller('sfMapController', MapController);
 
-    function MapController(LayersDataService) {
-        var ctrl = this;
+MapController.$inject = ['sfLayersDataService'];
 
-        ctrl.currentLayer = {};
-        ctrl.layers = [];
+function MapController(LayersDataService) {
+    var vm = this;
 
-        activate();
+    vm.currentLayer = {};
+    vm.layers = [];
 
-        ///////////////
+    activate();
 
-        function activate() {
-            return getLayers().then(function(layers) {
-                setCurrentLayer(layers[0]);
-                //logger.info('Activated Map View');
-            });
-        }
+    ///////////////
 
-        function getLayers() {
-            return LayersDataService.getLayers()
-                .then(function(data) {
-                    ctrl.layers = data;
-
-                    return ctrl.layers;
-                });
-        }
-
-        function setCurrentLayer(layer) {
-            ctrl.currentLayer = layer;
-        }
+    function activate() {
+        return getLayers().then(function(layers) {
+            setCurrentLayer(layers[0]);
+            //logger.info('Activated Map View');
+        });
     }
 
-    return MapController;
-});
+    function getLayers() {
+        return LayersDataService.getLayers()
+            .then(function(data) {
+                vm.layers = data;
 
+                return vm.layers;
+            });
+    }
+
+    function setCurrentLayer(layer) {
+        vm.currentLayer = layer;
+    }
+}

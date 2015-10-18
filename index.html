@@ -10,11 +10,20 @@
             }
         </style>
     </head>
-    <body>
-        <header>Hello! I'm + {{' "Open Museum" '}} + project</header>
+    <body ng-app="sarFortress">
+        <header>Hello! I'm + {{"SarFortress"}} + project</header>
 
         <div ng-view></div>
 
-        <script src="src/lib/requirejs/require.js" data-main="src/require-config.js"></script>
+        <script src="src/lib/angular/angular.js"></script>
+        <script src="src/lib/angular-route/angular-route.js"></script>
+        <script src="src/lib/leaflet/dist/leaflet.js"></script>
+        <script src="src/lib/lodash/lodash.js"></script>
+        <script src="src/app/app.js"></script>
+        <script src="src/app/routes.js"></script>
+        <script src="src/app/map/map.module.js"></script>
+        <script src="src/app/map/map.controller.js"></script>
+        <script src="src/app/map/layers.service.js"></script>
+        <script src="src/app/map/leaflet-map.directive.js"></script>
     </body>
 </html>
