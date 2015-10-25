@@ -8,9 +8,9 @@
     },
     "dependencies": {
         "angular": "^1.4.0",
-        "angular-route": "^1.4.0",
         "leaflet": "^0.7.3",
-        "lodash": "^3.10.1"
+        "lodash": "^3.10.1",
+        "ui-router": "^0.2.15"
     },
     "private": true
 }

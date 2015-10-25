@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('sarFortress', [
-    'sfMap',
-    'ngRoute'
+    'ui.router',
+    'sfServices',
+    'sfMap'
 ]);

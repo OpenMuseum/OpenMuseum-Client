@@ -2,37 +2,10 @@
 
 angular
     .module('sfMap')
-    .controller('sfMapController', MapController);
+    .controller('MapController', MapController);
 
-MapController.$inject = ['sfLayersDataService'];
+MapController.$inject = ['$scope', 'LayersDataService'];
 
-function MapController(LayersDataService) {
+function MapController($scope, LayersDataService) {
     var vm = this;
-
-    vm.currentLayer = {};
-    vm.layers = [];
-
-    activate();
-
-    ///////////////
-
-    function activate() {
-        return getLayers().then(function(layers) {
-            setCurrentLayer(layers[0]);
-            //logger.info('Activated Map View');
-        });
-    }
-
-    function getLayers() {
-        return LayersDataService.getLayers()
-            .then(function(data) {
-                vm.layers = data;
-
-                return vm.layers;
-            });
-    }
-
-    function setCurrentLayer(layer) {
-        vm.currentLayer = layer;
-    }
 }

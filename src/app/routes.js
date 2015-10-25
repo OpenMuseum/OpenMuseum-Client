@@ -4,15 +4,28 @@ angular
     .module('sarFortress')
     .config(AppRouting);
 
-AppRouting.$inject = ['$routeProvider'];
+AppRouting.$inject = ['$stateProvider', '$locationProvider', '$urlRouterProvider'];
 
-function AppRouting($routeProvider) {
-    $routeProvider.when('/', {
-        templateUrl: './src/app/map/map.view.html',
-        controller: 'sfMapController as vm'
-    });
+function AppRouting($stateProvider, $locationProvider, $urlRouterProvider) {
+    $locationProvider.html5Mode(true);
 
-    $routeProvider.otherwise({
-        redirectTo: '/'
-    });
+    $stateProvider
+        .state('main', {
+            url: '/',
+            templateUrl: './src/app/main.html',
+            controller: 'MainController as vm',
+            resolve: {
+                layers: function(LayersDataService) {
+                    return LayersDataService.loadLayers();
+                }
+            }
+        })
+
+        .state('main.map', {
+            url: ':layerId',
+            templateUrl: './src/app/map/map.html',
+            controller: 'MapController as vm'
+        });
+
+    $urlRouterProvider.otherwise('/');
 }
