@@ -4,26 +4,8 @@ angular
     .module('sarFortress')
     .controller('MainController', MainController);
 
-MainController.$inject = ['$state', '$stateParams', 'LayersDataService'];
+MainController.$inject = [];
 
-function MainController($state, $stateParams, LayersDataService) {
+function MainController() {
     var vm = this;
-
-    init();
-
-    ///////////////
-
-    function init() {
-        var layer;
-
-        if (_.has($stateParams, 'layerId')) {
-            layer = LayersDataService.getLayerById($stateParams.layerId);
-        } else {
-            layer = LayersDataService.getDefaultLayer();
-        }
-
-        LayersDataService.setCurrentLayer(layer);
-
-        $state.go('main.map', {layerId: layer.id}); // TODO: Use routing service
-    }
 }

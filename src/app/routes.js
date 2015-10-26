@@ -8,9 +8,11 @@ AppRouting.$inject = ['$stateProvider', '$locationProvider', '$urlRouterProvider
 
 function AppRouting($stateProvider, $locationProvider, $urlRouterProvider) {
     $locationProvider.html5Mode(true);
+    $urlRouterProvider.otherwise('/');
 
     $stateProvider
         .state('main', {
+            abstract: true,
             url: '/',
             templateUrl: './src/app/main.html',
             controller: 'MainController as vm',
@@ -26,6 +28,4 @@ function AppRouting($stateProvider, $locationProvider, $urlRouterProvider) {
             templateUrl: './src/app/map/map.html',
             controller: 'MapController as vm'
         });
-
-    $urlRouterProvider.otherwise('/');
 }
