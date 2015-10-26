@@ -18,3 +18,5 @@ Install [gulp](http://gulpjs.com/)
 Run gulp for installing front-end environment
 
     $ gulp
+
+[Configure](https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-configure-your-server-to-work-with-html5mode) your server to work with html5Mode.
