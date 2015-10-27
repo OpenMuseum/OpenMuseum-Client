@@ -4,9 +4,9 @@ angular
     .module('sfServices')
     .factory('LayersDataService', LayersDataService);
 
-LayersDataService.$inject = ['$http', '$q'];
+LayersDataService.$inject = ['$http', '$q', 'Layer'];
 
-function LayersDataService($http, $q) {
+function LayersDataService($http, $q, Layer) {
     var currentLayer = {},
         layers = [];
 
@@ -69,7 +69,9 @@ function LayersDataService($http, $q) {
             .catch(getLayersFailed);
 
         function getLayersComplete(response) {
-            layers = response.data;
+            _.forEach(response.data, function(layerData) {
+                layers.push(new Layer(layerData));
+            });
         }
 
         function getLayersFailed(error) {

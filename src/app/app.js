@@ -2,6 +2,7 @@
 
 angular.module('sarFortress', [
     'ui.router',
-    'sfServices',
-    'sfMap'
+    'sfMap',
+    'sfModels',
+    'sfServices'
 ]);
