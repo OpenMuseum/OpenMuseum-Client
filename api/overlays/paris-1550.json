@@ -1,0 +1,45 @@
+[
+    {
+        "id": "1",
+        "name": "Culture",
+        "color": "blue",
+        "points": [
+            {
+                "name": "littleton",
+                "desc": "This is Littleton",
+                "x": 100,
+                "y": 70
+            },
+            {
+                "name": "denver",
+                "desc": "This is Denver",
+                "x": 150,
+                "y": 170
+            },
+            {
+                "name": "lenin",
+                "desc": "This is Lenin",
+                "x": 100,
+                "y": 70
+            },
+            {
+                "name": "aurora",
+                "desc": "This is Aurora",
+                "x": 100,
+                "y": 70
+            }
+        ]
+    },
+    {
+        "id": "2",
+        "name": "Church",
+        "color": "yellow",
+        "points": []
+    },
+    {
+        "id": "3",
+        "name": "Attraction",
+        "color": "red",
+        "points": []
+    }
+]

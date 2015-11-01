@@ -4,9 +4,9 @@ angular
     .module('sfModels')
     .factory('Layer', LayerModel);
 
-LayerModel.inject = ['$q'];
+LayerModel.inject = ['$http', '$q'];
 
-function LayerModel($q) {
+function LayerModel($http, $q) {
     function Layer(data) {
         this.default = false;
         this.height = null;
@@ -19,10 +19,6 @@ function LayerModel($q) {
         if (data) {
             this.setData(data);
         }
-
-        function loadOverlays() {
-            // TODO
-        }
     }
 
     Layer.prototype = {
@@ -32,13 +28,29 @@ function LayerModel($q) {
         getOverlays: function() {
             var deferred = $q.defer();
 
-            if (_.has(this, 'overlays')) {
-                deferred.resolve(this.overlays);
+            if (_.isEmpty(this.overlays)) {
+                this._loadOverlays(this.id, deferred);
             } else {
-                this.loadOverlays(this.id, deferred);
+                deferred.resolve(this.overlays);
             }
 
             return deferred.promise;
+        },
+        _loadOverlays: function(layerId, deferred) {
+            var layer = this;
+
+            return $http.get('./api/overlays/' + layerId + '.json')
+                .then(loadOverlaysComplete)
+                .catch(loadOverlaysFailed);
+
+            function loadOverlaysComplete(response) {
+                layer.overlays = response.data;
+                deferred.resolve(layer.overlays);
+            }
+
+            function loadOverlaysFailed(error) {
+                //logger.error('XHR Failed for loadOverlays: ' + error.data);
+            }
         }
     };
 

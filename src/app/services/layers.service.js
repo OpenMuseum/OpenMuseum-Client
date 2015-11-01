@@ -4,9 +4,9 @@ angular
     .module('sfServices')
     .factory('LayersDataService', LayersDataService);
 
-LayersDataService.$inject = ['$http', '$q', 'Layer'];
+LayersDataService.$inject = ['$http', 'Layer'];
 
-function LayersDataService($http, $q, Layer) {
+function LayersDataService($http, Layer) {
     var currentLayer = {},
         layers = [];
 
@@ -65,17 +65,17 @@ function LayersDataService($http, $q, Layer) {
     function loadLayers() {
         //return $http.get('http://openmuseum.azurewebsites.net/api/Layers')
         return $http.get('./api/layers.json')
-            .then(getLayersComplete)
-            .catch(getLayersFailed);
+            .then(loadLayersComplete)
+            .catch(loadLayersFailed);
 
-        function getLayersComplete(response) {
+        function loadLayersComplete(response) {
             _.forEach(response.data, function(layerData) {
                 layers.push(new Layer(layerData));
             });
         }
 
-        function getLayersFailed(error) {
-            //logger.error('XHR Failed for getMaps: ' + error.data);
+        function loadLayersFailed(error) {
+            //logger.error('XHR Failed for loadLayers: ' + error.data);
         }
     }
 }

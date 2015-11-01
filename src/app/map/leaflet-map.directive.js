@@ -39,11 +39,14 @@ angular
                 _.forEach(layers, function (layer) {
                     var mapLayer = L.tileLayer(layer.url, {
                         id: layer.id,
+                        model: layer,
                         minZoom: mapMinZoom,
                         maxZoom: mapMaxZoom,
                         noWrap: true,
                         continuousWorld: true
                     });
+
+                    layer.getOverlays();
 
                     layersControls[layer.name] = mapLayer;
 
@@ -60,7 +63,8 @@ angular
                     maxZoom: mapMaxZoom,
                     minZoom: mapMinZoom,
                     center: [0, 0],
-                    zoom: 3
+                    zoom: 3,
+                    zoomControl: false
                 });
 
                 southWest = map.unproject([0, 4444], mapMaxZoom);
@@ -70,7 +74,8 @@ angular
                 map.setMaxBounds(mapBounds);
                 map.setView(mapBounds.getCenter(), 4);
 
-                L.control.layers(layersControls).addTo(map);
+                L.control.zoom({position: 'bottomleft'}).addTo(map);
+                L.control.layers(layersControls, [], {position: 'topleft'}).addTo(map);
             }
         }
 
