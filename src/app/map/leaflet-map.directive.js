@@ -21,14 +21,17 @@ angular
         ///////////////
 
         function LeafletMapController($scope) {
+            var layersControl,
+                zoomControl,
+                map;
+
             init();
 
             function init() {
-                var currentLayer = LayersDataService.getCurrentLayer(),
-                    initialLayer,
+                var baseLayersControls = {},
+                    currentLayer = LayersDataService.getCurrentLayer(),
+                    initialLayer = {},
                     layers = LayersDataService.getLayers(),
-                    layersControls = {},
-                    map,
                     mapBounds,
                     mapLayers = [],
                     mapMaxZoom = 5,
@@ -46,15 +49,12 @@ angular
                         continuousWorld: true
                     });
 
-                    layer.getOverlays();
+                    if (layer.id === currentLayer.id) {
+                        initialLayer = mapLayer;
+                    }
 
-                    layersControls[layer.name] = mapLayer;
-
+                    baseLayersControls[layer.name] = mapLayer;
                     mapLayers.push(mapLayer);
-                });
-
-                initialLayer = _.find(mapLayers, function(layer) {
-                    return layer.options.id === currentLayer.id;
                 });
 
                 map = L.map('main-map', {
@@ -67,6 +67,8 @@ angular
                     zoomControl: false
                 });
 
+                addOverlaysToMap(initialLayer);
+
                 southWest = map.unproject([0, 4444], mapMaxZoom);
                 northEast = map.unproject([6108, 0], mapMaxZoom);
                 mapBounds = L.latLngBounds(southWest, northEast);
@@ -74,8 +76,54 @@ angular
                 map.setMaxBounds(mapBounds);
                 map.setView(mapBounds.getCenter(), 4);
 
-                L.control.zoom({position: 'bottomleft'}).addTo(map);
-                L.control.layers(layersControls, [], {position: 'topleft'}).addTo(map);
+                createZoomControl();
+                createLayersControl(baseLayersControls);
+            }
+
+            function createZoomControl() {
+                zoomControl = L.control.zoom({position: 'bottomleft'});
+                zoomControl.addTo(map);
+            }
+
+            function createLayersControl(baseControls) {
+                layersControl = L.control.layers(baseControls, [], {position: 'topleft'});
+                layersControl.addTo(map);
+            }
+
+            function addOverlaysToMap(layer) {
+                if (_.has(layer.options, 'overlays')) {
+                    addOverlays(layer.options.overlays);
+                } else {
+                    layer.options.model.getOverlays().then(function(overlays) {
+                        var layers = {};
+
+                        _.forEach(overlays, function(overlay) {
+                            var points = [];
+
+                            _.forEach(overlay.points, function(point) {
+                                points.push(createMarker(point));
+                            });
+
+                            layers[overlay.name] = L.layerGroup(points);
+                        });
+
+                        layer.options.overlays = layers;
+                        addOverlays(layers);
+                    });
+                }
+            }
+
+            function addOverlays(layers) {
+                _.forIn(layers, function(value, key) {
+                    map.addLayer(value);
+                    layersControl.addOverlay(value, key);
+                });
+            }
+
+            function createMarker(data) {
+                var coords = map.unproject([data.x, data.y], 5);
+
+                return L.marker(coords).bindPopup(data.desc);
             }
         }
 

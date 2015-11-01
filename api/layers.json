@@ -2,16 +2,16 @@
     {
         "id": "paris-1550",
         "name": "Paris 1550",
-        "height": 6108,
-        "width": 4444,
+        "height": 4444,
+        "width": 6108,
         "url": "https://dl.dropboxusercontent.com/u/4605143/paris1550/{z}/{x}/{y}.png",
         "default": true
     },
     {
         "id": "paris-1575",
         "name": "Paris 1575",
-        "height": 6108,
-        "width": 4444,
+        "height": 4444,
+        "width": 6108,
         "url": "https://dl.dropboxusercontent.com/u/4605143/paris1575/{z}/{x}/{y}.png"
     }
 ]
