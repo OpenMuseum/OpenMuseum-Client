@@ -21,7 +21,8 @@ angular
         ///////////////
 
         function LeafletMapController($scope) {
-            var layersControl,
+            var icons = {},
+                layersControl,
                 zoomControl,
                 map;
 
@@ -101,7 +102,7 @@ angular
                             var points = [];
 
                             _.forEach(overlay.points, function(point) {
-                                points.push(createMarker(point));
+                                points.push(createMarker(point, overlay.name.toLowerCase()));
                             });
 
                             layers[overlay.name] = L.layerGroup(points);
@@ -120,10 +121,37 @@ angular
                 });
             }
 
-            function createMarker(data) {
-                var coords = map.unproject([data.x, data.y], 5);
+            /**
+             * @param {Object} point
+             * @param {number} point.x
+             * @param {number} point.y
+             * @param {string} point.desc
+             * @param {string} overlayKey - Unique overlay key
+             *
+             * @returns {L.marker}
+             */
+            function createMarker(point, overlayKey) {
+                var coords = map.unproject([point.x, point.y], 5),
+                    options = {
+                        icon: getIcon(overlayKey)
+                    };
 
-                return L.marker(coords).bindPopup(data.desc);
+                return L.marker(coords, options).bindPopup(point.desc);
+            }
+
+            /**
+             * @param {string} key - Unique overlay key
+             *
+             * @returns {L.divIcon}
+             */
+            function getIcon(key) {
+                if (!_.has(icons, key)) {
+                    icons[key] = L.divIcon({
+                        className: key + '-overlay-icon overlay-icon'
+                    });
+                }
+
+                return icons[key];
             }
         }
 

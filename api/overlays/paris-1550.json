@@ -2,7 +2,6 @@
     {
         "id": "1",
         "name": "Culture",
-        "color": "blue",
         "points": [
             {
                 "name": "littleton",
@@ -33,7 +32,6 @@
     {
         "id": "2",
         "name": "Church",
-        "color": "yellow",
         "points": [
             {
                 "name": "littleton11",
@@ -58,7 +56,6 @@
     {
         "id": "3",
         "name": "Attraction",
-        "color": "red",
         "points": [
             {
                 "name": "denver22",
