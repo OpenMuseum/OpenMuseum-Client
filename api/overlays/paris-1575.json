@@ -2,44 +2,79 @@
     {
         "id": "1",
         "name": "Culture",
-        "color": "blue",
         "points": [
             {
-                "name": "littleton1",
-                "desc": "This is Littleton1",
-                "x": 2000,
-                "y": 1000
+                "name": "rome",
+                "desc": "This is Rome",
+                "x": 2400,
+                "y": 3000
             },
             {
-                "name": "denver1",
-                "desc": "This is Denver1",
-                "x": 150,
-                "y": 170
+                "name": "odessa",
+                "desc": "This is Odessa",
+                "x": 4500,
+                "y": 440
             },
             {
-                "name": "lenin1",
-                "desc": "This is Lenin1",
-                "x": 100,
-                "y": 70
+                "name": "moscow",
+                "desc": "This is Moscow",
+                "x": 1400,
+                "y": 2700
             },
             {
-                "name": "aurora1",
-                "desc": "This is Aurora1",
-                "x": 100,
-                "y": 70
+                "name": "vegas",
+                "desc": "This is Las Vegas",
+                "x": 600,
+                "y": 1500
             }
         ]
     },
     {
         "id": "2",
         "name": "Church",
-        "color": "yellow",
-        "points": []
+        "points": [
+            {
+                "name": "amsterdam",
+                "desc": "This is Amsterdam",
+                "x": 5000,
+                "y": 2500
+            },
+            {
+                "name": "qwerty",
+                "desc": "This is Qwerty",
+                "x": 2000,
+                "y": 1300
+            },
+            {
+                "name": "madrid",
+                "desc": "This is Madrid",
+                "x": 3400,
+                "y": 2800
+            }
+        ]
     },
     {
         "id": "3",
         "name": "Attraction",
-        "color": "red",
-        "points": []
+        "points": [
+            {
+                "name": "samara",
+                "desc": "This is Samara",
+                "x": 100,
+                "y": 1460
+            },
+            {
+                "name": "penza",
+                "desc": "This is Penza",
+                "x": 5000,
+                "y": 3900
+            },
+            {
+                "name": "kazan",
+                "desc": "This is Kazan",
+                "x": 600,
+                "y": 600
+            }
+        ]
     }
 ]

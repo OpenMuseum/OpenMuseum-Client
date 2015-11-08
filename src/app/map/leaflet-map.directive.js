@@ -21,22 +21,24 @@ angular
         ///////////////
 
         function LeafletMapController($scope) {
-            var icons = {},
+            var baseLayers = {},
+                currentLayer,
+                icons = {},
                 layersControl,
                 zoomControl,
-                map;
+                map,
+                mapMaxZoom = 5,
+                mapMinZoom = 3,
+                overlaysControl;
 
             init();
+            bindGlobalEventListeners();
+            bindMapEventListeners();
 
             function init() {
                 var baseLayersControls = {},
-                    currentLayer = LayersDataService.getCurrentLayer(),
-                    initialLayer = {},
                     layers = LayersDataService.getLayers(),
                     mapBounds,
-                    mapLayers = [],
-                    mapMaxZoom = 5,
-                    mapMinZoom = 3,
                     northEast,
                     southWest;
 
@@ -50,17 +52,17 @@ angular
                         continuousWorld: true
                     });
 
-                    if (layer.id === currentLayer.id) {
-                        initialLayer = mapLayer;
+                    if (layer.id === LayersDataService.getCurrentLayer().id) {
+                        currentLayer = mapLayer;
                     }
 
+                    baseLayers[layer.id] = mapLayer;
                     baseLayersControls[layer.name] = mapLayer;
-                    mapLayers.push(mapLayer);
                 });
 
                 map = L.map('main-map', {
                     crs: L.CRS.Simple,
-                    layers: [initialLayer],
+                    layers: [currentLayer],
                     maxZoom: mapMaxZoom,
                     minZoom: mapMinZoom,
                     center: [0, 0],
@@ -68,7 +70,11 @@ angular
                     zoomControl: false
                 });
 
-                addOverlaysToMap(initialLayer);
+                layersControl = createLayersControl(baseLayersControls);
+                overlaysControl = createLayersControl();
+
+                createZoomControl();
+                addOverlays(currentLayer);
 
                 southWest = map.unproject([0, 4444], mapMaxZoom);
                 northEast = map.unproject([6108, 0], mapMaxZoom);
@@ -76,9 +82,35 @@ angular
 
                 map.setMaxBounds(mapBounds);
                 map.setView(mapBounds.getCenter(), 4);
+            }
 
-                createZoomControl();
-                createLayersControl(baseLayersControls);
+            function bindGlobalEventListeners() {
+                $rootScope.$on('layer:changed', onLayerChanged);
+            }
+
+            function bindMapEventListeners() {
+                map.on('baselayerchange', function(e) {
+                    $rootScope.$emit('layer:changed', {
+                        oldLayer: currentLayer.options.id,
+                        newLayer: e.layer.options.id
+                    });
+                });
+            }
+
+            /**
+             * @param {Object} event
+             * @param {Object} data
+             * @param {string} data.newLayer
+             * @param {string} data.oldLayer
+             */
+            function onLayerChanged(event, data) {
+                var newLayer = baseLayers[data.newLayer],
+                    oldLayer = baseLayers[data.oldLayer];
+
+                currentLayer = newLayer;
+
+                removeOverlays(oldLayer);
+                addOverlays(newLayer);
             }
 
             function createZoomControl() {
@@ -86,14 +118,28 @@ angular
                 zoomControl.addTo(map);
             }
 
+            /**
+             * @param {Object} [baseControls]
+             *
+             * @returns {Control.Layers}
+             */
             function createLayersControl(baseControls) {
-                layersControl = L.control.layers(baseControls, [], {position: 'topleft'});
+                var base = baseControls || [],
+                    layersControl = L.control.layers(base, [], {position: 'topleft'});
+
                 layersControl.addTo(map);
+
+                return layersControl;
             }
 
-            function addOverlaysToMap(layer) {
+            /**
+             * @param {TileLayer} layer
+             *
+             * @returns void
+             */
+            function addOverlays(layer) {
                 if (_.has(layer.options, 'overlays')) {
-                    addOverlays(layer.options.overlays);
+                    pushOverlaysToMap(layer.options.overlays);
                 } else {
                     layer.options.model.getOverlays().then(function(overlays) {
                         var layers = {};
@@ -109,15 +155,27 @@ angular
                         });
 
                         layer.options.overlays = layers;
-                        addOverlays(layers);
+                        pushOverlaysToMap(layers);
+                    });
+                }
+
+                function pushOverlaysToMap(layers) {
+                    _.forIn(layers, function(value, key) {
+                        map.addLayer(value);
+                        overlaysControl.addOverlay(value, key);
                     });
                 }
             }
 
-            function addOverlays(layers) {
-                _.forIn(layers, function(value, key) {
-                    map.addLayer(value);
-                    layersControl.addOverlay(value, key);
+            /**
+             * @param {TileLayer} layer
+             *
+             * @returns void
+             */
+            function removeOverlays(layer) {
+                _.forIn(layer.options.overlays, function(value, key) {
+                    map.removeLayer(value);
+                    overlaysControl.removeLayer(value);
                 });
             }
 
@@ -128,10 +186,10 @@ angular
              * @param {string} point.desc
              * @param {string} overlayKey - Unique overlay key
              *
-             * @returns {L.marker}
+             * @returns {Marker}
              */
             function createMarker(point, overlayKey) {
-                var coords = map.unproject([point.x, point.y], 5),
+                var coords = map.unproject([point.x, point.y], mapMaxZoom),
                     options = {
                         icon: getIcon(overlayKey)
                     };
@@ -142,7 +200,7 @@ angular
             /**
              * @param {string} key - Unique overlay key
              *
-             * @returns {L.divIcon}
+             * @returns {DivIcon}
              */
             function getIcon(key) {
                 if (!_.has(icons, key)) {
