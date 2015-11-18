@@ -4,8 +4,7 @@ angular
     .module('sfServices')
     .factory('LayersDataService', LayersDataService);
 
-LayersDataService.$inject = ['$http', 'Layer'];
-
+/** @ngInject */
 function LayersDataService($http, Layer) {
     var currentLayer = {},
         layers = [];

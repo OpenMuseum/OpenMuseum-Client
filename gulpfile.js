@@ -1,20 +1,22 @@
+'use strict';
+
 var gulp = require('gulp');
-var bower = require('gulp-bower');
-var clean = require('gulp-clean');
+var wrench = require('wrench');
 
-gulp.task('clean-libs', function() {
-    return gulp
-        .src('src/lib/*', {
-            read: false
-        })
-        .pipe(clean());
+/**
+ *  Loads all js or coffee files in the gulp directory
+ *  in order to load all gulp tasks
+ */
+wrench.readdirSyncRecursive('./gulp').filter(function (file) {
+    return (/\.(js|coffee)$/i).test(file);
+}).map(function (file) {
+    require('./gulp/' + file);
 });
 
-gulp.task('bower', ['clean-libs'], function() {
-    return bower()
-        .pipe(gulp.dest('src/lib'));
+/**
+ *  Default task clean temporaries directories and launch the
+ *  main optimization build task
+ */
+gulp.task('default', ['clean'], function () {
+    gulp.start('build');
 });
-
-gulp.task('install-libs', ['bower']);
-
-gulp.task('default', ['install-libs']);

@@ -4,8 +4,7 @@ angular
     .module('sfMap')
     .directive('sfLeafletMap', LeafletMapDirective);
 
-    LeafletMapDirective.$inject = ['$rootScope', 'LayersDataService'];
-
+    /** @ngInject */
     function LeafletMapDirective($rootScope, LayersDataService) {
         var directive = {
             restrict: 'E',

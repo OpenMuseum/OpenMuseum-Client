@@ -6,11 +6,38 @@
         "type": "git",
         "url": "git@github.com:OpenMuseum/OpenMuseum-Client.git"
     },
+    "private": true,
     "dependencies": {
-        "angular": "^1.4.0",
+        "angular": "~1.4.2",
+        "angular-animate": "~1.4.2",
+        "angular-bootstrap": "~0.13.4",
+        "angular-cookies": "~1.4.2",
+        "angular-sanitize": "~1.4.2",
+        "angular-resource": "~1.4.2",
+        "angular-ui-router": "~0.2.15",
+        "animate.css": "~3.4.0",
+        "bootstrap": "~3.3.5",
+        "jquery": "~2.1.4",
         "leaflet": "^0.7.7",
-        "lodash": "^3.10.1",
-        "ui-router": "^0.2.15"
+        "lodash": "^3.10.1"
     },
-    "private": true
+    "devDependencies": {
+        "angular-mocks": "~1.4.2"
+    },
+    "overrides": {
+        "bootstrap": {
+            "main": [
+                "less/bootstrap.less",
+                "dist/fonts/glyphicons-halflings-regular.eot",
+                "dist/fonts/glyphicons-halflings-regular.svg",
+                "dist/fonts/glyphicons-halflings-regular.ttf",
+                "dist/fonts/glyphicons-halflings-regular.woff",
+                "dist/fonts/glyphicons-halflings-regular.woff2"
+            ]
+        }
+    },
+    "resolutions": {
+        "jquery": "~2.1.4",
+        "angular": "~1.4.2"
+    }
 }

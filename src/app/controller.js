@@ -4,8 +4,7 @@ angular
     .module('sarFortress')
     .controller('MainController', MainController);
 
-MainController.$inject = [];
-
+/** @ngInject */
 function MainController() {
-    var vm = this;
+
 }

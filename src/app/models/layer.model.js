@@ -4,8 +4,7 @@ angular
     .module('sfModels')
     .factory('Layer', LayerModel);
 
-LayerModel.inject = ['$http', '$q'];
-
+/** @ngInject */
 function LayerModel($http, $q) {
     function Layer(data) {
         this.default = false;
