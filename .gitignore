@@ -1,4 +1,6 @@
 .idea
-.DS_Store
+.tmp
+bower_components
+coverage
+dist
 node_modules
-src/lib

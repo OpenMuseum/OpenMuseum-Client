@@ -4,8 +4,7 @@ angular
     .module('sfMap')
     .controller('MapController', MapController);
 
-MapController.$inject = ['$state', '$stateParams', 'LayersDataService'];
-
+/** @ngInject */
 function MapController($state, $stateParams, LayersDataService) {
     var vm = this;
 

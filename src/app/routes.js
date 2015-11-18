@@ -4,17 +4,19 @@ angular
     .module('sarFortress')
     .config(AppRouting);
 
-AppRouting.$inject = ['$stateProvider', '$locationProvider', '$urlRouterProvider'];
-
+/** @ngInject */
 function AppRouting($stateProvider, $locationProvider, $urlRouterProvider) {
-    $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode({
+        enabled: true,
+        requireBase: false
+    });
     $urlRouterProvider.otherwise('/');
 
     $stateProvider
         .state('main', {
             abstract: true,
             url: '/',
-            templateUrl: './src/app/main.html',
+            templateUrl: 'app/main.html',
             controller: 'MainController as vm',
             resolve: {
                 layers: function(LayersDataService) {
@@ -25,7 +27,7 @@ function AppRouting($stateProvider, $locationProvider, $urlRouterProvider) {
 
         .state('main.map', {
             url: ':layerId',
-            templateUrl: './src/app/map/map.html',
+            templateUrl: 'app/map/map.html',
             controller: 'MapController as vm'
         });
 }
