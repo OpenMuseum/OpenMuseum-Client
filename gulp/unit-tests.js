@@ -3,7 +3,7 @@
 var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
-var karma = require('karma');
+var Server = require('karma').Server;
 
 var pathSrcHtml = [
     path.join(conf.paths.src, '/**/*.html')
@@ -38,8 +38,8 @@ function runTests(singleRun, done) {
         preprocessors: preprocessors
     };
 
-    server = new karma.Server(localConfig, function (failCount) {
-        done(failCount ? new Error("Failed " + failCount + " tests.") : null);
+    server = new Server(localConfig, function (exitCode) {
+        done(exitCode ? new Error('Karma has exited with ' + exitCode) : null);
     });
 
     server.start();
