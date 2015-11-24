@@ -4,8 +4,8 @@ var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
 var wiredep = require('wiredep').stream;
-var $ = require('gulp-load-plugins')();
 var _ = require('lodash');
+var $ = require('gulp-load-plugins')();
 
 gulp.task('inject', ['scripts', 'styles'], function () {
     var injectStyles = gulp.src([

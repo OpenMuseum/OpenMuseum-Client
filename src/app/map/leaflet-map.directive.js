@@ -204,7 +204,8 @@ angular
             function getIcon(key) {
                 if (!_.has(icons, key)) {
                     icons[key] = L.divIcon({
-                        className: key + '-overlay-icon overlay-icon'
+                        iconSize: [17, 17],
+                        className: 'overlay-icon overlay-icon--' + key
                     });
                 }
 
