@@ -19,7 +19,7 @@ angular
 
         ///////////////
 
-        function LeafletMapController($scope) {
+        function LeafletMapController() {
             var baseLayers = {},
                 currentLayer,
                 icons = {},
@@ -172,7 +172,7 @@ angular
              * @returns void
              */
             function removeOverlays(layer) {
-                _.forIn(layer.options.overlays, function(value, key) {
+                _.forIn(layer.options.overlays, function(value) {
                     map.removeLayer(value);
                     overlaysControl.removeLayer(value);
                 });

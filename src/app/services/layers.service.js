@@ -74,7 +74,7 @@ function LayersDataService($http, Layer) {
         }
 
         function loadLayersFailed(error) {
-            //logger.error('XHR Failed for loadLayers: ' + error.data);
+            throw new Error('XHR Failed for loadLayers: ' + error.data);
         }
     }
 }
