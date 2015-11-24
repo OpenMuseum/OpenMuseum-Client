@@ -48,7 +48,7 @@ function LayerModel($http, $q) {
             }
 
             function loadOverlaysFailed(error) {
-                //logger.error('XHR Failed for loadOverlays: ' + error.data);
+                throw new Error('XHR Failed for _loadOverlays: ' + error.data);
             }
         }
     };

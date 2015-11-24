@@ -6,8 +6,6 @@ angular
 
 /** @ngInject */
 function MapController($state, $stateParams, LayersDataService) {
-    var vm = this;
-
     init();
 
     ///////////////
