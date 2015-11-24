@@ -12,14 +12,14 @@ Install the npm dependencies
 npm install
 ```
 
+Install [gulp](http://gulpjs.com/)
+```
+npm install -g gulp bower
+```
+
 Install bower dependencies
 ```
 bower install
-```
-
-Install [gulp](http://gulpjs.com/)
-```
-npm install --global gulp
 ```
 
 [Configure](https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-configure-your-server-to-work-with-html5mode) your server to work with html5Mode.
