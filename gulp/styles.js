@@ -13,11 +13,17 @@ gulp.task('styles', function () {
             maps: ['colors.yml']
         },
 
+        reportOptions = {
+            clearMessages: true
+        },
+
         processors = [
             require('postcss-import'),
             require('postcss-cssnext'),
             require('postcss-map')(mapOptions),
-            require('precss')
+            require('precss'),
+            require('stylelint'),
+            require('postcss-reporter')(reportOptions)
         ],
 
         injectFiles = gulp.src([
@@ -30,7 +36,7 @@ gulp.task('styles', function () {
         injectOptions = {
             transform: function (filePath) {
                 filePath = filePath.replace(conf.paths.src + '/assets/styles/', '');
-                return '@import "' + filePath + '";';
+                return '@import \'' + filePath + '\';';
             },
             starttag: '/* injector */',
             endtag: '/* endinjector */',
