@@ -1,0 +1,83 @@
+{
+    "rules": {
+        // String
+        "string-quotes": [2, "single"],
+
+        // Color
+        "color-hex-case": [2, "lower"],
+        "color-hex-length": [2, "short"],
+        "color-no-invalid-hex": 2,
+        "color-no-named": 2,
+
+        // Number
+        "number-leading-zero": [2, "never"],
+        "number-no-trailing-zeros": 2,
+        "number-zero-length-no-unit": 2,
+
+        // Function
+        "function-calc-no-unspaced-operator": 2,
+        "function-comma-newline-after": [2, "never-multi-line"],
+        "function-comma-newline-before": [2, "never-multi-line"],
+        "function-comma-space-after": [2, "always"],
+        "function-comma-space-before": [2, "never"],
+        "function-parentheses-space-inside": [2, "never"],
+        "function-url-quotes": [2, "none"],
+
+        // Value
+        "value-no-vendor-prefix": 2,
+
+        // Value list
+        "value-list-comma-newline-after": [2, "never-multi-line"],
+        "value-list-comma-newline-before": [2, "never-multi-line"],
+        "value-list-comma-space-after": [2, "always"],
+        "value-list-comma-space-before": [2, "never"],
+
+        // Property
+        "property-no-vendor-prefix": 2,
+        "custom-property-no-outside-root": 2,
+
+        // Declaration
+        "declaration-bang-space-after": [2, "never"],
+        "declaration-bang-space-before": [2, "always"],
+        "declaration-bang-space-before": [2, "always"],
+        "declaration-colon-newline-after": [2, "always-multi-line"],
+        "declaration-colon-space-after": [2, "always"],
+        "declaration-colon-space-before": [2, "never"],
+        "declaration-block-semicolon-newline-after": [2, "always"],
+        "declaration-block-semicolon-newline-before": [2, "never-multi-line"],
+
+        // Block
+        "block-closing-brace-newline-after": [2, "always"],
+        "block-closing-brace-newline-before": [2, "always"],
+        "block-no-empty": 2,
+        "block-opening-brace-newline-after": [2, "always"],
+        "block-opening-brace-space-before": [2, "always"],
+
+        // Selector
+        "selector-combinator-space-after": [2, "always"],
+        "selector-combinator-space-before": [2, "always"],
+        "selector-no-vendor-prefix": 2,
+        "selector-list-comma-newline-after": [2, "always"],
+
+        // Rule
+        "rule-nested-empty-line-before": [2, "always-multi-line"],
+        "rule-no-duplicate-properties": 2,
+        "rule-no-shorthand-property-overrides": 1,
+        "rule-no-single-line": 2,
+        "rule-properties-order": [1, "alphabetical"],
+        "rule-trailing-semicolon": [2, "always"],
+
+        // Media
+        "media-feature-colon-space-after": [2, "always"],
+        "media-feature-colon-space-before": [2, "never"],
+        "media-query-parentheses-space-inside": [2, "always"],
+        "media-query-list-comma-space-after": [2, "always"],
+        "media-query-list-comma-space-before": [2, "never"],
+
+        // Comment
+        "comment-space-inside": [1, "always"],
+
+        // General
+        "indentation": [2, 4]
+    }
+}
