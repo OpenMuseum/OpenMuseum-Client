@@ -21,7 +21,7 @@ function LayersDataService($http, Layer) {
     ///////////////
 
     /**
-     * @returns {Object[]}
+     * @returns {LayerModel[]}
      */
     function getLayers() {
         return layers;
@@ -30,7 +30,7 @@ function LayersDataService($http, Layer) {
     /**
      * @param {string} id
      *
-     * @returns {Object}
+     * @returns {LayerModel}
      */
     function getLayerById(id) {
         return _.findWhere(layers, {
@@ -39,7 +39,7 @@ function LayersDataService($http, Layer) {
     }
 
     /**
-     * @returns {Object}
+     * @returns {LayerModel}
      */
     function getDefaultLayer() {
         return _.findWhere(layers, {
@@ -48,14 +48,14 @@ function LayersDataService($http, Layer) {
     }
 
     /**
-     * @returns {Object}
+     * @returns {LayerModel}
      */
     function getCurrentLayer() {
         return currentLayer;
     }
 
     /**
-     * @param {Object} layer
+     * @param {LayerModel} layer
      */
     function setCurrentLayer(layer) {
         currentLayer = layer;
