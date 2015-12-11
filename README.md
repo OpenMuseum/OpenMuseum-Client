@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/OpenMuseum/OpenMuseum-Client.svg?branch=develop)](https://travis-ci.org/OpenMuseum/OpenMuseum-Client)
 [![DevDependencies](https://david-dm.org/OpenMuseum/OpenMuseum-Client/dev-status.svg)](https://david-dm.org/OpenMuseum/OpenMuseum-Client#info=devDependencies)
+[![codecov.io](https://codecov.io/github/OpenMuseum/OpenMuseum-Client/coverage.svg?branch=develop)](https://codecov.io/github/OpenMuseum/OpenMuseum-Client?branch=develop)
 
 ## Install
 
