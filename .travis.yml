@@ -1,8 +1,9 @@
 language: node_js
 node_js:
-  - "0.12"
-  - "0.10"
+  - "5.0"
 before_script:
-  - npm install -g gulp bower
+  - npm install -g gulp bower codecov.io
   - bower install
 script: gulp test
+after_success:
+  - npm run codecov
