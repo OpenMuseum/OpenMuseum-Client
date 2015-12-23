@@ -14,15 +14,9 @@ function AppRouting($stateProvider, $locationProvider, $urlRouterProvider) {
 
     $stateProvider
         .state('main', {
-            abstract: true,
             url: '/',
             templateUrl: 'app/main.html',
-            controller: 'MainController as vm',
-            resolve: {
-                layers: function(LayersDataService) {
-                    return LayersDataService.loadLayers();
-                }
-            }
+            controller: 'MainController as vm'
         })
 
         .state('main.map', {
