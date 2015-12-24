@@ -3,8 +3,7 @@
 describe('Layers Service', function () {
     var $httpBackend,
         Layer,
-        LayersDataService,
-        layersCollection;
+        LayersDataService;
 
     // Mock module dependencies
     beforeEach(function () {
@@ -26,25 +25,38 @@ describe('Layers Service', function () {
 
     describe('successfully', function () {
 
-        // Load layers collection
-        beforeEach(function () {
+        it('should load layers', function () {
             $httpBackend.when('GET', './api/layers.json').respond(200, getJSONFixture('layers_api.json'));
-            LayersDataService.loadLayers();
+            LayersDataService.getLayers().then(function(layers) {
+                expect(layers.length).toEqual(2);
+            });
             $httpBackend.flush();
-
-            layersCollection = LayersDataService.getLayers();
         });
 
-        it('should load layers', function () {
-            expect(LayersDataService.getLayers().length).toEqual(2);
+        it('should return memorized layers', function () {
+            $httpBackend.when('GET', './api/layers.json').respond(200, getJSONFixture('layers_api.json'));
+            LayersDataService.getLayers().then(function() {
+                LayersDataService.getLayers().then(function(layers) {
+                    expect(layers.length).toEqual(2);
+                });
+            });
+            $httpBackend.flush();
         });
 
         it('should get default layer', function () {
-            expect(LayersDataService.getDefaultLayer().id).toEqual('paris-1550');
+            $httpBackend.when('GET', './api/layers.json').respond(200, getJSONFixture('layers_api.json'));
+            LayersDataService.getLayers().then(function() {
+                expect(LayersDataService.getDefaultLayer().id).toEqual('paris-1550');
+            });
+            $httpBackend.flush();
         });
 
         it('should get layer by "id"', function () {
-            expect(LayersDataService.getLayerById('paris-1575').id).toEqual('paris-1575');
+            $httpBackend.when('GET', './api/layers.json').respond(200, getJSONFixture('layers_api.json'));
+            LayersDataService.getLayers().then(function() {
+                expect(LayersDataService.getLayerById('paris-1575').id).toEqual('paris-1575');
+            });
+            $httpBackend.flush();
         });
 
         it('should set current layer', function () {
@@ -67,7 +79,7 @@ describe('Layers Service', function () {
             $httpBackend.when('GET', './api/layers.json').respond(500, 'Oh no!');
 
             try {
-                LayersDataService.loadLayers();
+                LayersDataService.getLayers();
                 $httpBackend.flush();
             } catch (error) {
                 expect(error.toString()).toEqual('Error: XHR Failed for loadLayers: Oh no!');

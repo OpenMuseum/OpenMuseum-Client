@@ -5,7 +5,7 @@ angular
     .factory('LayersDataService', LayersDataService);
 
 /** @ngInject */
-function LayersDataService($http, Layer) {
+function LayersDataService($http, $q, Layer) {
     var currentLayer = {},
         layers = [];
 
@@ -14,17 +14,24 @@ function LayersDataService($http, Layer) {
         getLayerById: getLayerById,
         getDefaultLayer: getDefaultLayer,
         getCurrentLayer: getCurrentLayer,
-        setCurrentLayer: setCurrentLayer,
-        loadLayers: loadLayers
+        setCurrentLayer: setCurrentLayer
     };
 
     ///////////////
 
     /**
-     * @returns {LayerModel[]}
+     * @returns {jQuery.Promise}
      */
     function getLayers() {
-        return layers;
+        var deferred = $q.defer();
+
+        if (_.isEmpty(layers)) {
+            _loadLayers(deferred);
+        } else {
+            deferred.resolve(layers);
+        }
+
+        return deferred.promise;
     }
 
     /**
@@ -61,7 +68,10 @@ function LayersDataService($http, Layer) {
         currentLayer = layer;
     }
 
-    function loadLayers() {
+    /**
+     * @returns {jQuery.Promise}
+     */
+    function _loadLayers(deferred) {
         //return $http.get('http://openmuseum.azurewebsites.net/api/Layers')
         return $http.get('./api/layers.json')
             .then(loadLayersComplete)
@@ -71,9 +81,11 @@ function LayersDataService($http, Layer) {
             _.forEach(response.data, function(layerData) {
                 layers.push(new Layer(layerData));
             });
+            deferred.resolve(layers);
         }
 
         function loadLayersFailed(error) {
+            deferred.reject(error);
             throw new Error('XHR Failed for loadLayers: ' + error.data);
         }
     }

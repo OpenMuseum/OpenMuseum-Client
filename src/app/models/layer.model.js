@@ -48,6 +48,7 @@ function LayerModel($http, $q) {
             }
 
             function loadOverlaysFailed(error) {
+                deferred.reject(error);
                 throw new Error('XHR Failed for _loadOverlays: ' + error.data);
             }
         }
