@@ -5,6 +5,6 @@ angular
     .controller('MapController', MapController);
 
 /** @ngInject */
-function MapController($state, $stateParams, LayersDataService) {
+function MapController() {
 
 }

@@ -15,6 +15,10 @@ function MainController($state, LayersDataService) {
 
         if (_.has($state.params, 'layerId') && !_.isEmpty($state.params.layerId)) {
             layer = LayersDataService.getLayerById($state.params.layerId);
+
+            if (!layer) {
+                layer = LayersDataService.getDefaultLayer();
+            }
         } else {
             layer = LayersDataService.getDefaultLayer();
         }
