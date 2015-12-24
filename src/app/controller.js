@@ -6,7 +6,7 @@ angular
 
 /** @ngInject */
 function MainController($state, LayersDataService) {
-    LayersDataService.loadLayers().then(function() {
+    LayersDataService.getLayers().then(function() {
         init();
     });
 

@@ -24,7 +24,7 @@ describe('Main Controller', function () {
 
         module(function ($provide) {
             $provide.value('LayersDataService',{
-                loadLayers: function () {
+                getLayers: function () {
                     return {
                         then: function (callback) { return callback(getJSONFixture('layers_api.json')); }
                     }
@@ -49,10 +49,10 @@ describe('Main Controller', function () {
     }));
 
     it('should call LayersDataService to load layers', function () {
-        spyOn(LayersDataService, 'loadLayers').and.callThrough();
+        spyOn(LayersDataService, 'getLayers').and.callThrough();
         createController();
 
-        expect(LayersDataService.loadLayers).toHaveBeenCalled();
+        expect(LayersDataService.getLayers).toHaveBeenCalled();
     });
 
     it('should redirect to the default layer if url isn\'t specified', function () {

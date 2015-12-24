@@ -30,13 +30,14 @@ angular
                 mapMinZoom = 3,
                 overlaysControl;
 
-            init();
-            bindGlobalEventListeners();
-            bindMapEventListeners();
+            LayersDataService.getLayers().then(function(layers) {
+                init(layers);
+                bindGlobalEventListeners();
+                bindMapEventListeners();
+            });
 
-            function init() {
+            function init(layers) {
                 var baseLayersControls = {},
-                    layers = LayersDataService.getLayers(),
                     mapBounds,
                     northEast,
                     southWest;
