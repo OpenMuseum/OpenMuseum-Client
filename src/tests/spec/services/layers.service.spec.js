@@ -43,7 +43,7 @@ describe('Layers Service', function () {
             $httpBackend.flush();
         });
 
-        it('should get default layer', function () {
+        it('should return default layer', function () {
             $httpBackend.when('GET', './api/layers.json').respond(200, getJSONFixture('layers_api.json'));
             LayersDataService.getLayers().then(function() {
                 expect(LayersDataService.getDefaultLayer().id).toEqual('paris-1550');
@@ -51,7 +51,7 @@ describe('Layers Service', function () {
             $httpBackend.flush();
         });
 
-        it('should get layer by "id"', function () {
+        it('should return layer by "id"', function () {
             $httpBackend.when('GET', './api/layers.json').respond(200, getJSONFixture('layers_api.json'));
             LayersDataService.getLayers().then(function() {
                 expect(LayersDataService.getLayerById('paris-1575').id).toEqual('paris-1575');
