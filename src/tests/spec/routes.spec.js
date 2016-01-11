@@ -1,7 +1,11 @@
 'use strict';
 
 describe('Routing', function () {
-    var $state, $stateParams, $templateCache, $location, $rootScope;
+    var $state,
+        $stateParams,
+        $templateCache,
+        $location,
+        $rootScope;
 
     function mockTemplate(templateRoute, tmpl) {
         $templateCache.put(templateRoute, tmpl || templateRoute);

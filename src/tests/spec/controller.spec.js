@@ -1,7 +1,12 @@
 'use strict';
 
 describe('Main Controller', function () {
-    var $state, $stateParams, $templateCache, $location, $rootScope, $injector, $controller, LayersDataService;
+    var $state,
+        $location,
+        $rootScope,
+        $injector,
+        $controller,
+        LayersDataService;
 
     function goTo(url) {
         $location.url(url);
@@ -23,7 +28,7 @@ describe('Main Controller', function () {
         module('sarFortress');
 
         module(function ($provide) {
-            $provide.value('LayersDataService',{
+            $provide.value('LayersDataService', {
                 getLayers: function () {
                     return {
                         then: function (callback) { return callback(getJSONFixture('layers_api.json')); }
@@ -37,10 +42,8 @@ describe('Main Controller', function () {
     });
 
     // Mock other dependencies
-    beforeEach(inject(function (_$state_, _$stateParams_, _$templateCache_, _$location_, _$rootScope_, _$injector_, _$controller_, _LayersDataService_) {
+    beforeEach(inject(function (_$state_, _$location_, _$rootScope_, _$injector_, _$controller_, _LayersDataService_) {
         $state = _$state_;
-        $stateParams = _$stateParams_;
-        $templateCache = _$templateCache_;
         $location = _$location_;
         $rootScope = _$rootScope_;
         $injector = _$injector_;
